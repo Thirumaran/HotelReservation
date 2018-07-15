@@ -1,0 +1,51 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+		{
+            "relationshipName": "agent",
+            "otherEntityName": "agent",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name"
+        }
+	],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "address",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "telNo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "srilankan",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "identityNo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "note",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20171201020018",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "guest",
+    "pagination": "pagination"
+}

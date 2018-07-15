@@ -1,0 +1,27 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "telNo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "identityNo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20180602150653",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "agent",
+    "pagination": "no"
+}

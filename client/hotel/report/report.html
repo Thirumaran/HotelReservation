@@ -1,0 +1,57 @@
+<div class="text-center">
+	<form  class="form-horizontal well well3" name="reportForm" role="form" novalidate  ng-submit="vm.bookingReport()">
+        <div class="form-group">
+            <div class="col-md-2">
+	            <label class="control-label" data-translate="booking.fromDate" for="field_checkIn">From Date</label>
+	             <span class="input-group">
+                    <input id="field_checkIn" type="text" class="form-control" name="checkIn" datetime-picker="{{dateformat}}" ng-model="vm.checkIn" is-open="vm.datePickerOpenStatus.checkIn"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('checkIn')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </span>
+	        </div>
+        	<div class="col-md-2">
+	            <label class="control-label" data-translate="booking.toDate" for="field_checkOut">To Date</label>
+	            <span class="input-group">
+	                <input id="field_checkOut" type="text" class="form-control" name="checkOut" datetime-picker="{{dateformat}}" ng-model="vm.checkOut" is-open="vm.datePickerOpenStatus.checkOut"
+	                  />
+	                <span class="input-group-btn">
+	                    <button type="button" class="btn btn-default" ng-click="vm.openCalendar('checkOut')"><i class="glyphicon glyphicon-calendar"></i></button>
+	                </span>
+	            </span>
+            </div>
+        	<div class="col-md-1">
+		        <button type="submit" class="btn btn-default" style="margin-top:24px">
+		            <span class="glyphicon glyphicon-search"></span>&nbsp;<span data-translate="booking.search">Search</span>
+		        </button>
+		    </div>
+		    <div class="col-md-1">
+			    <button class="btn btn-success"  ng-if="vm.bookingList.length > 0" type="button"  style="margin-top:24px">
+				  Total Booking <span class="badge">{{vm.bookingList.length}}</span>
+				</button>
+			</div>
+	    </div>
+	</form>
+    <div>
+		<table class="well well1 jh-table table table-condenced" ng-if="vm.bookingList.length > 0">
+            <thead>
+            	<td>Guest</td>
+            	<td>NIC / Passport</td>
+            	<td>Check in</td>
+            	<td>Check out</td>
+            	<td>Rooms</td>
+            </thead>
+            <tbody>
+		    	<tr ng-repeat="booking in vm.bookingList">
+		    		<td>{{booking.guestName}}</td>
+		    		<td>{{booking.identityNo}}</td>
+		    		<td>{{booking.checkIn  | date:'dd-MM-yyyy HH:mm'}}</td>
+		    		<td>{{booking.checkOut  | date:'dd-MM-yyyy HH:mm'}}</td>
+		    		<td><span ng-repeat="room in booking.rooms">{{room.name}} - {{room.location}}</span></td>
+		    	</tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+    

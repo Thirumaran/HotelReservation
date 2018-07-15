@@ -1,0 +1,19 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "roomType",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20171201014932",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "room_type",
+    "pagination": "no"
+}

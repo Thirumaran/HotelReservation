@@ -1,0 +1,183 @@
+<div class="text-center">
+	<form  class="form-horizontal well well3" name="guestForm" role="form" novalidate  ng-if="vm.searchEnabled" show-validation>
+        <div class="form-group">
+            <label class="control-label col-md-1" for="field_telNo">Name</label>
+            <span class="col-md-1">
+            	<input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="vm.name"
+                     />
+            </span>
+            <label class="control-label col-md-1" for="field_telNo">Tel No</label>
+            <span class="col-md-2">
+            	<input type="text" class="form-control" name="telNo" id="field_telNo"
+                    ng-model="vm.telNo"
+                     />
+            </span>
+            <label class="control-label col-md-1" for="field_identityNo">Identity No</label>
+            <span>
+            	<span class="col-md-2"> 
+            		<input type="text" class="form-control col-md-4" name="identityNo" id="field_identityNo"
+                    ng-model="vm.identityNo"
+                     />
+                </span>
+                <span class="col-md-1"> 
+			        <button ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-default" ng-click="vm.searchGuest()">
+			            <span class="glyphicon glyphicon-search"></span>
+			        </button>
+			    </span>
+		    </span>    
+		    <span class="col-md-3">    
+	    		<button class="btn btn-default col-md-offset-1" ng-click="vm.enableNewGuest()">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+		    </span>
+	    </div>
+	</form>
+	<div>
+		<div ng-if="!vm.searchEnabled" class="pull-right">
+			<button ng-if="vm.activeRooms.length > 0" type="button" class="btn btn-link btn-lg" ng-click="vm.showBookings()">
+			  <span class="glyphicon glyphicon-th-list"  aria-hidden="true"></span>
+			</button>
+			<button type="button" class="btn btn-link btn-lg" ng-click="vm.newBooking()">
+			  <span class="glyphicon glyphicon-pencil"  aria-hidden="true"></span>
+			</button>
+			<button type="button" class="btn btn-link btn-lg" ng-click="vm.enableSearch()">
+			  <span class="glyphicon glyphicon-search"  aria-hidden="true"></span>
+			</button>
+		</div>
+		<div class="well well3" ng-if="vm.selectedGuest == null">
+			<div class="jh-table table table-condenced" ng-repeat="guest in vm.guestList">
+	    		<div class="col-md-2 text-center">{{guest.name}}</div>
+	    		<div class="col-md-1 text-center">{{guest.telNo}}</div>
+	    		<div class="col-md-1 text-center">{{guest.identityNo}}</div>
+	    		<div class="col-md-1 text-center">{{guest.srilankan ? 'Sri Lankan' : 'Non Sri Lankan'}}</div>
+
+	    		<div class="col-md-1 text-center" style="margin-top:-5px">
+					<button class="btn btn-default" type="button" ng-click="vm.chooseGuest($index)">
+					  <span class="glyphicon glyphicon-check"></span>
+					  Select Guest
+					</button>
+	    		</div>
+	    		<BR>
+	        </div>
+	    </div>
+        <div class="well well3 jh-table table table-bordered" ng-if="vm.selectedGuest !== null">
+    		<div class="col-md-2 text-center">{{vm.selectedGuest.name}}</div>
+    		<div class="col-md-1" ng-show="vm.selectedGuest.agentId !== null">
+    			<abbr title="Agent : {{vm.selectedGuest.agentName}}">
+    				<span class="glyphicon glyphicon-king" style="color:yellow"></span>
+    			</abbr>
+    		</div>
+    		<div class="col-md-1 text-center">{{vm.selectedGuest.telNo}}</div>
+    		<div class="col-md-1 text-center">{{vm.selectedGuest.identityNo}}</div>
+    		<div class="col-md-1 text-center">{{vm.selectedGuest.srilankan ? 'Sri Lankan' : 'Non Sri Lankan'}}</div>
+    		
+    		<div class="col-md-1" style="margin-top:-5px" ng-show="vm.selectedGuest.agentId !== null">	
+    			<button class="btn btn-default" type="button" ng-click="vm.editGuest()">
+				  <span class="glyphicon glyphicon-edit"></span>					  
+				</button>
+    		</div>
+    		<div class="col-md-3" style="margin-top:-5px">
+		    		<button class="btn btn-success" type="button">
+					  Active <span class="badge">{{vm.activeRooms.length}}</span>
+					</button>
+					<button class="btn btn-default" type="button">
+					  Booked <span class="badge">{{vm.TotalBooked}}</span>
+					</button>
+					<button class="btn btn-default" type="button">
+					  Cancelled <span class="badge">{{vm.TotalCancelled}}</span>
+					</button>
+    		</div>
+    		<BR>
+        </div>
+    </div>
+
+    <div ng-if="vm.newGuestEnabled && vm.searchEnabled">
+    	<new-guest></new-guest>
+    </div>
+    <div ng-if="vm.selectedGuest !== null && vm.guestEdit">
+    	<new-guest guest-id="{{vm.selectedGuest.id}}"></new-guest>
+    </div>
+    <div>
+		<table class="well well3 jh-table table table-condenced" ng-if="!vm.searchEnabled && vm.viewBookings && vm.activeRooms.length > 0">
+            <thead>
+            	<td>Check in</td>
+            	<td>Check out</td>
+            	<td>Booking Status</td>
+            	<td>Rooms</td>
+            	<td>Action</td>
+            </thead>
+            <tbody>
+		    	<tr ng-repeat="booking in vm.activeRooms">
+		    		<td>{{booking.checkIn | date:'dd-MM-yyyy HH:mm'}}</td>
+		    		<td>{{booking.checkOut  | date:'dd-MM-yyyy HH:mm'}}</td>
+		    		<td>{{booking.bookingStatusBookingStatus}}</td>
+		    		<td><span ng-repeat="room in booking.rooms">{{room.name}} - {{room.location}}</span></td>
+		    		
+		    		<td> 
+		    			<button class="btn btn-default col-md-offset-1" ng-disabled = "!vm.isCheckedIn($index)" ng-click="vm.checkInRoom(booking.id)">
+		                    <span class="glyphicon glyphicon-home"></span>
+		                </button>
+		                <button class="btn btn-default col-md-offset-1" ng-click="vm.checkOutRoom(booking.id)">
+		                    <span class="glyphicon glyphicon-share"></span>
+		                </button>
+		                <button class="btn btn-default col-md-offset-1" ng-click="vm.cancellRoom(booking.id)">
+		                    <span class="glyphicon glyphicon-ban-circle"></span>
+		                </button>
+		                <button class="btn btn-default col-md-offset-1" ng-click="vm.editBooking(booking.id)">
+		                    <span class="glyphicon glyphicon-pencil"></span>
+		                </button>		                
+		    		</td>
+		    	</tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-if="vm.viewNewBooking && vm.selectedGuest !== null">
+		<form class="well well3" name="editForm" role="form" novalidate ng-if="!vm.searchEnabled" ng-submit="vm.save()">
+		    <div class="modal-body" >
+		        <jhi-alert-error></jhi-alert-error>
+		        <div class="col-md-2">
+		            <label class="control-label" for="field_checkIn">Check In</label>
+		                <span class="input-group">
+		                    <input id="field_checkIn" type="text" class="form-control" name="checkIn" datetime-picker="{{dateformat}}" ng-model="vm.booking.checkIn" is-open="vm.datePickerOpenStatus.checkIn"
+		                      />
+		                    <span class="input-group-btn">
+		                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('checkIn')"><i class="glyphicon glyphicon-calendar"></i></button>
+		                    </span>
+		                </span>
+		        </div>
+		        <div class="col-md-2">
+		            <label class="control-label" for="field_checkOut">Check Out</label>
+		                <span class="input-group">
+		                    <input id="field_checkOut" type="text" class="form-control" name="checkOut" datetime-picker="{{dateformat}}" ng-model="vm.booking.checkOut" is-open="vm.datePickerOpenStatus.checkOut"
+		                      />
+		                    <span class="input-group-btn">
+		                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('checkOut')"><i class="glyphicon glyphicon-calendar"></i></button>
+		                    </span>
+		                </span>
+		        </div>
+		        <div class="col-md-2">
+		            <label for="field_bookingStatus">Booking Status</label>
+		            <select class="form-control" id="field_bookingStatus" name="bookingStatus" ng-model="vm.booking.bookingStatusId" ng-options="bookingStatus.id as bookingStatus.bookingStatus for bookingStatus in vm.bookingstatuses"            >
+		                <option value=""></option>
+		            </select>
+		        </div>
+		        <div class="col-md-4">
+		            <label for="field_room">Room</label>
+		            <select class="form-control" id="field_room" multiple name="room" ng-model="vm.booking.rooms" ng-options="room as room.name for room in vm.rooms track by room.id"></select>
+		        </div>
+		    </div>
+		    <div class="modal-footer">
+		    	<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+		            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+		        </button>
+		        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-default">
+		            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+		        </button>
+		    </div>
+		</form>
+    </div>
+</div>
+<div class="well well2 text-center">
+    <booking-calendar unavailable-rooms="vm.unavailableBookings"></booking-calendar>
+</div>

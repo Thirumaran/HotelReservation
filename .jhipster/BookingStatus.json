@@ -1,0 +1,19 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "bookingStatus",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20171201020955",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "booking_status",
+    "pagination": "no"
+}

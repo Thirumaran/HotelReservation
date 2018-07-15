@@ -1,0 +1,64 @@
+<form class="form-horizontal well well2" name="editForm" role="form" novalidate show-validation>
+    <h2>{{ isNewGuest() ? "Create a new guest" : "Edit Guest" }}</h2>
+    <div class="form-group" ng-show="isNewGuest()">
+        <label class="control-label" for="field_name">Is Agent</label>
+        <span>        
+            <toggle-switch
+              ng-model="guest.isAgent"
+              class="switch-default"
+              on-label="Yes"
+              off-label="No">
+            </toggle-switch>
+        </span>
+    </div>
+    <div class="form-group">
+            <label class="control-label col-md-1" for="field_name">Name</label>
+            <span class="col-md-2">
+                <input type="text" class="form-control col-md-3" name="name" id="field_name"
+                    ng-model="guest.name"
+                     />
+            </span>
+            <label class="control-label col-md-1" for="field_telNo">Tel No</label>
+            <span class="col-md-2">
+                <input type="text" class="form-control col-md-3" name="telNo" id="field_telNo"
+                    ng-model="guest.telNo"
+                     />
+            </span>
+            <label class="control-label col-md-1" for="field_identityNo">Identity No</label>
+            <span class="col-md-2">
+                <input type="text" class="form-control col-md-3" name="identityNo" id="field_identityNo"
+                        ng-model="guest.identityNo"
+                         />
+            </span>
+
+            <span class="col-xd-1">
+                <button type="button" class="btn btn-default" ng-click="vm.clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+                </button>
+                <button ng-click="saveGuest()" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-default">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+                </button>
+            </span>
+    </div>
+    <div class="form-group">
+            <label ng-if="guest.isAgent!=true" class="control-label col-md-1" for="field_srilankan">Srilankan</label>
+            <span ng-if="guest.isAgent!=true" class="col-md-2">
+                <input type="checkbox" class="form-control col-md-3" name="srilankan" id="field_srilankan"
+                        ng-model="guest.srilankan"
+                         />
+            </span>
+
+            <label ng-if="guest.isAgent!=true" class="control-label col-md-1" for="field_address">Address</label>
+            <span ng-if="guest.isAgent!=true" class="col-md-2">
+                <textarea class="form-control col-md-3" name="address" id="field_address"
+                    ng-model="guest.address"  ></textarea>
+            </span>
+            
+            <label ng-if="guest.isAgent!=true" class="control-label col-md-1" for="field_note">Note</label>
+            <span ng-if="guest.isAgent!=true" class="col-md-2">
+                <textarea class="form-control col-md-3" name="note" id="field_note"
+                    ng-model="guest.note"  ></textarea>
+            </span>
+    </div>
+</form>
+<BR>

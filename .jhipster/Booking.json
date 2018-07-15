@@ -1,0 +1,48 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "guest",
+            "otherEntityName": "guest",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "bookingStatus",
+            "otherEntityName": "bookingStatus",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "bookingStatus"
+        },
+        {
+            "relationshipName": "room",
+            "otherEntityName": "room",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "booking"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "checkIn",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "checkOut",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "billNo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20171201020919",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "booking",
+    "pagination": "pagination"
+}
